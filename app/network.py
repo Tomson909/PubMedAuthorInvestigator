@@ -50,7 +50,6 @@ def show_page(data):
             center_node = max(centrality, key=centrality.get)
             center_nodes_groups.append((i, center_node, centrality[center_node]))  # Store the community index, center node, and its centrality score
             center_names_groups.append(center_node)
-        st.write(center_names_groups)
 
         # modularity
         modularity = nx.algorithms.community.modularity(G, communities)
@@ -63,7 +62,7 @@ def show_page(data):
         most_centered_nodes = [node for node, centrality in center_nodes[:10]]
         most_centered_nodes_score = [centrality for node, centrality in center_nodes[:10]]
         df = pd.DataFrame({'Author': most_centered_nodes, 'Centrality Score': most_centered_nodes_score})
-        st.write(df)
+
 
         # Configure the spring layout
         pos = nx.spring_layout(G, seed=42, k=0.15, iterations=50)

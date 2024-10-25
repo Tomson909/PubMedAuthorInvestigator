@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # remove data, task
-data/
+app/results/
 task/
 
 # Distribution / packaging
