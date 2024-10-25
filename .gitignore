@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# remove data, task
+data/
+task/
+
 # Distribution / packaging
 .Python
 build/
