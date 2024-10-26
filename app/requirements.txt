@@ -1,19 +1,13 @@
+-f https://download.pytorch.org/whl/cpu
 streamlit
-os
-json
-time
 pandas
-numpy
 plotly
-collections
+#collections
+numpy
 transformers
 scikit-learn
-matplotlib
-scipy
-pprint
-plotly.graph_objects
-networkx
 bs4
-tqdm
-folium
-plotly.io
+networkx
+torch
+torchvision
+torchaudio

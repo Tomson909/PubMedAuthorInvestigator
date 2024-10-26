@@ -1,13 +1,7 @@
 import streamlit as st
-from pubmed_crawler import SinglePubMedSearcher
-import os
-import json
 import pandas as pd
-import plotly.express as px
-from collections import Counter
-import folium
-from collections import Counter
-from streamlit_folium import st_folium
+import networkx as nx
+import plotly.graph_objects as go
 
 def show_page(data):
     def get_authors(data):
@@ -17,9 +11,6 @@ def show_page(data):
         return authors
 
     def plot_network(data):
-        import networkx as nx
-        import plotly.graph_objects as go
-
         # Get the authors from the data
         authors = get_authors(data)
         # initialize the graph

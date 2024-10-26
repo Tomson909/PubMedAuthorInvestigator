@@ -1,6 +1,4 @@
 import re
-from typing import List, Dict
-from pprint import pprint
 import json
 import requests
 from bs4 import BeautifulSoup
@@ -8,7 +6,6 @@ from time import sleep
 import os
 import random
 from tqdm import tqdm
-import sys
 
 ###########################
 # Searching Default Execution

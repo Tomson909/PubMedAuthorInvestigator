@@ -1,21 +1,10 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from pubmed_crawler import SinglePubMedSearcher
-import os
-import json
-import pandas as pd
 import plotly.express as px
-from collections import Counter
 import torch
 from transformers import AutoTokenizer, AutoModel
-import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
-from sklearn.cluster import AgglomerativeClustering
-import scipy.cluster.hierarchy as sch
-import numpy as np
-from pprint import pprint
-import plotly.express as px
 
 
 def plot_embeddings_with_plotly(embeddings, urls):

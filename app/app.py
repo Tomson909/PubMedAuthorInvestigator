@@ -2,7 +2,6 @@ import streamlit as st
 import os
 import json
 from pubmed_crawler import SinglePubMedSearcher
-import time
 
 # Set the page configuration
 st.set_page_config(layout="wide", page_title="My Streamlit App")
@@ -20,6 +19,7 @@ if 'data' not in st.session_state:
 
 # Create sidebar elements
 selected_tab = st.sidebar.selectbox("Select a Tab", tabs, index=tabs.index(st.session_state.selected_tab))
+st.session_state.selected_tab = selected_tab  # Store selected tab in session state
 
 # Add text input fields to the sidebar
 fname = st.sidebar.text_input('First Name', key='fname')
