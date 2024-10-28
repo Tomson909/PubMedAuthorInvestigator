@@ -24,7 +24,6 @@ def show_page(data):
                     G.add_edge(author_list[i], author_list[j])
 
         communities = nx.algorithms.community.greedy_modularity_communities(G)
-        st.write(f"Number of communities: {len(communities)}")
 
         # Initialize a list to hold center nodes for each community
         center_nodes_groups = []
@@ -44,7 +43,56 @@ def show_page(data):
 
         # modularity
         modularity = nx.algorithms.community.modularity(G, communities)
-        st.write(f"Modularity: {modularity}")
+        modularity_explan = """
+        ## Modularity
+
+        Modularity is a measure used in network analysis to evaluate the strength of division of a network into communities or groups. It quantifies how well a network is organized into clusters, where connections (edges) are denser within groups (communities) than between them.
+
+        ### Why is Modularity Important?
+
+        - **Community Detection**: High modularity indicates that a network has distinct communities, making it easier to identify groups of nodes (such as authors) that collaborate more closely with each other than with nodes outside their group.
+        - **Network Structure Insight**: Understanding the modularity of a network helps reveal its structure and can provide insights into the dynamics and interactions within the network.
+
+        ### How is Modularity Calculated?
+
+        Modularity (Q) is calculated using the following formula:
+        """
+
+        # Display the text explanation
+        st.markdown(modularity_explan)
+
+        # Display the modularity formula using st.latex
+        st.latex(r"""
+        Q = \frac{1}{2m} \sum_{i} \left( e_{ii} - \frac{k_i^2}{2m} \right)
+        """)
+
+        # Continue the explanation after the formula
+        st.markdown("""
+        Where:
+        - \( m \) is the total number of edges in the network.
+        - \( e_{ii} \) is the number of edges within community \( i \).
+        - \( k_i \) is the total degree (number of connections) of nodes in community \( i \).
+
+        ### Interpretation of Modularity Values
+
+        - **Q = 0**: The network has no community structure; connections are random.
+        - **Q > 0**: The network has communities. The higher the value, the stronger the community structure.
+        - **0.3 < Q ≤ 0.5**: A moderate community structure.
+        - **Q > 0.5**: A strong community structure, indicating well-defined groups.
+
+        ## Community Detection
+
+        The community detection algorithm used in this analysis is the Greedy Modularity Communities algorithm, which is based on maximizing the modularity of the network. It identifies communities by iteratively moving nodes between communities to improve the overall modularity score.
+        """)
+
+        # Create a DataFrame to hold the results
+        results_df = pd.DataFrame({
+            "Metric": ["Number of Communities", "Modularity"],
+            "Value": [int(len(communities)), modularity]
+        }, columns=['Metric', 'Value']).set_index("Metric")
+
+        # Display the results as a table
+        st.table(results_df)
 
         # most centered nodes
         center_nodes = nx.algorithms.centrality.degree_centrality(G)
@@ -140,6 +188,9 @@ def show_page(data):
 
         # Show the plot
         return fig
+    
     with st.spinner('Analyzing Network...'):
         fig_network = plot_network(data)
     st.plotly_chart(fig_network, key = 'network')
+
+
