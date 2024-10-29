@@ -244,6 +244,21 @@ def show_page(data, author_name):
         fig = px.bar(number_author, x='Position', y='Count')
         return fig, number_first_author
 
+    def write_titles_links(data):
+        """
+        Write the titles of the papers and provide a link to the PubMed page of the paper.
+
+        Parameters:
+            data (list of dict): List of publication data, with each publication as a dictionary.
+        """
+        with st.expander("Click here to see the titles of the papers"):
+            url_base = 'https://pubmed.ncbi.nlm.nih.gov/'
+            for i in data:
+                title = i['TI'][0][:-1]
+                pmid = i['PMID'][0]
+                url = f'{url_base}{pmid}'
+                st.write(f"- [{title}]({url})")
+
 
     with st.spinner('Creating Summary...'): # use spinner to show that the data is loading
         number_of_paper = number_paper(data)
@@ -295,4 +310,6 @@ def show_page(data, author_name):
     st.write(f'This plot shows the top 10 institutions which contributed to the autho papers. This is not the most frequent insitution of just the author. This are the most frequent institutions of all the authors. **{round(perc_aff)}% of the authors have affiliation information.**')
     st.plotly_chart(fig_affiliation, key='affiliations')
 
+    st.write('## List of Papers and Links')
+    write_titles_links(data)
 

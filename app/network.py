@@ -4,18 +4,45 @@ import networkx as nx
 import plotly.graph_objects as go
 
 def show_page(data):
+    """
+    Displays a network analysis page based on the provided data.
+
+    Args:
+        data (list): A list of dictionaries containing author information.
+    """
+
     def get_authors(data):
+        """
+        Extracts authors from the given data.
+
+        Args:
+            data (list): A list of dictionaries containing author information.
+
+        Returns:
+            list: A list of authors.
+        """
         authors = []
         for entry in data:
             authors.append(entry['FAU'])
         return authors
 
     def plot_network(data):
+        """
+        Constructs a network graph from author data and visualizes it.
+
+        Args:
+            data (list): A list of dictionaries containing author information.
+
+        Returns:
+            go.Figure: A Plotly figure object representing the network graph.
+        """
         # Get the authors from the data
         authors = get_authors(data)
-        # initialize the graph
+        
+        # Initialize the graph
         G = nx.Graph()
-        # construct the graph
+        
+        # Construct the graph by adding nodes and edges
         for author_list in authors:
             for author in author_list:
                 G.add_node(author)
@@ -23,12 +50,14 @@ def show_page(data):
                 for j in range(i+1, len(author_list)):
                     G.add_edge(author_list[i], author_list[j])
 
+        # Detect communities within the graph
         communities = nx.algorithms.community.greedy_modularity_communities(G)
 
-        # Initialize a list to hold center nodes for each community
+        # Initialize lists to hold center nodes for each community
         center_nodes_groups = []
         center_names_groups = []
-        # Loop through each community
+        
+        # Loop through each community to find central nodes
         for i, community in enumerate(communities):
             # Create a subgraph for the community
             subgraph = G.subgraph(community)
@@ -36,13 +65,14 @@ def show_page(data):
             # Calculate degree centrality for the subgraph
             centrality = nx.degree_centrality(subgraph)
             
-            # Get the node with the highest degree centrality in the community
+            # Identify the node with the highest degree centrality in the community
             center_node = max(centrality, key=centrality.get)
-            center_nodes_groups.append((i, center_node, centrality[center_node]))  # Store the community index, center node, and its centrality score
+            center_nodes_groups.append((i, center_node, centrality[center_node]))  # Store index, center node, and centrality score
             center_names_groups.append(center_node)
 
-        # modularity
+        # Calculate modularity of the network
         modularity = nx.algorithms.community.modularity(G, communities)
+        
         modularity_explan = """
         ## Modularity
 
@@ -94,16 +124,16 @@ def show_page(data):
         # Display the results as a table
         st.table(results_df)
 
-        # most centered nodes
+        # Calculate most central nodes in the entire graph
         center_nodes = nx.algorithms.centrality.degree_centrality(G)
         center_nodes = sorted(center_nodes.items(), key=lambda x: x[1], reverse=True)
 
+        # Prepare data for the top 10 most central nodes
         most_centered_nodes = [node for node, centrality in center_nodes[:10]]
         most_centered_nodes_score = [centrality for node, centrality in center_nodes[:10]]
         df = pd.DataFrame({'Author': most_centered_nodes, 'Centrality Score': most_centered_nodes_score})
 
-
-        # Configure the spring layout
+        # Configure the spring layout for the network visualization
         pos = nx.spring_layout(G, seed=42, k=0.15, iterations=50)
 
         # Get node degrees for coloring and sizing
@@ -113,7 +143,7 @@ def show_page(data):
         # Normalize node sizes
         node_sizes = [10 + 40 * (deg / max_degree) for deg in node_degree]  # Scale node sizes for better visibility
 
-        # Create edge traces
+        # Create edge traces for the network
         edge_x = []
         edge_y = []
         for edge in G.edges():
@@ -129,7 +159,7 @@ def show_page(data):
             mode='lines'
         )
 
-        # Create node traces
+        # Create node traces for the network visualization
         node_x = []
         node_y = []
         for node in G.nodes():
@@ -155,7 +185,7 @@ def show_page(data):
             text=[str(node) for node in G.nodes()],  # Add node labels
         )
 
-        # Create the figure
+        # Create the figure for visualization
         fig = go.Figure(data=[edge_trace, node_trace],
                         layout=go.Layout(
                             height=800,
@@ -191,6 +221,4 @@ def show_page(data):
     
     with st.spinner('Analyzing Network...'):
         fig_network = plot_network(data)
-    st.plotly_chart(fig_network, key = 'network')
-
-
+    st.plotly_chart(fig_network, key='network')
