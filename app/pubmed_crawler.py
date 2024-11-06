@@ -264,11 +264,6 @@ class SinglePubMedSearcher:
 #                     searcher = SinglePubMedSearcher(author)
 #                     searcher.search_author()
 
-#searcher = MultPubMedSearcher('Mishra, Neha', 1)
+#searcher = MultPubMedSearcher('Mishra, Neha', 1) Too many connections. Takes too long to search all authors.
 #searcher.search()
-
-
-##################################
-# St
-
-SinglePubMedSearcher('Mishra, Neha').search_author()
+#SinglePubMedSearcher('Mishra, Neha').search_author()

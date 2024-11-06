@@ -163,7 +163,7 @@ def show_page(data, name):
     st.warning('I am not a domain expert. Therefore it was not possible for me to validate the results. The only thing I did was too ask chatgpt to compare the topics of the papers.')
     
     # Display the scatter plot
-    st.plotly_chart(st.session_state.fig)
+    st.plotly_chart(st.session_state.fig, key = 'embedd', use_container_width=True)
 
     # Dropdown selection to view a specific document
     selected_index = st.selectbox("Select a paper to open:", range(len(st.session_state.urls)), format_func=lambda x: f"Document {x + 1}")

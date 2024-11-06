@@ -14,7 +14,7 @@ tabs = ["About", "Summary", "Author Network", "Topic Clustering"]
 
 # Initialize session state variables if they don’t exist
 if 'selected_tab' not in st.session_state:
-    st.session_state.selected_tab = "Summary"  # Default tab on load
+    st.session_state.selected_tab = "About"  # Default tab on load
 if 'data' not in st.session_state:
     st.session_state.data = None  # Variable to store paper data
 
@@ -26,6 +26,10 @@ st.session_state.selected_tab = selected_tab  # Store selected tab in session st
 # Add text input fields in the sidebar to input author details
 fname = st.sidebar.text_input('First Name', key='fname')
 lname = st.sidebar.text_input('Last Name', key='lname')
+
+# remove leading and trailing whitespaces
+fname = fname.strip()
+lname = lname.strip()
 
 
 # Function to retrieve list of file paths in the specified directory
@@ -120,6 +124,7 @@ if st.sidebar.button('Search - Update'):
         
         my_bar.empty()  # Clear the progress bar when loading is complete
 
+        st.session_state.selected_tab = "Summary"
     # Display an error message if no data is loaded
     if not st.session_state.data:
         st.markdown(
@@ -142,16 +147,15 @@ if st.sidebar.button('Search - Update'):
                 mime='application/zip'
             )
 
+# about page is not dependent on data.
+if st.session_state.selected_tab == "About":
+    import about
+    about.show_page()
 
 # Display the selected tab module only if data is available
 if st.session_state.data:
     st.write('Read the about page for more details about the app and the data retrieval process.')
-
-    # Render the content for each selected tab
-    if st.session_state.selected_tab == "About":
-        import about
-        about.show_page()
-    elif st.session_state.selected_tab == "Summary":
+    if st.session_state.selected_tab == "Summary":
         import summary
         summary.show_page(st.session_state.data, st.session_state.name)
     elif st.session_state.selected_tab == "Author Network":

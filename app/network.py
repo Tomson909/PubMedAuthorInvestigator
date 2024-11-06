@@ -99,9 +99,10 @@ def show_page(data):
         # Continue the explanation after the formula
         st.markdown("""
         Where:
-        - \( m \) is the total number of edges in the network.
-        - \( e_{ii} \) is the number of edges within community \( i \).
-        - \( k_i \) is the total degree (number of connections) of nodes in community \( i \).
+        
+        - $$ m $$ is the total number of edges in the network.
+        - $$ e_{ii} $$ is the number of edges within community $$ i $$.
+        - $$ k_i $$ is the total degree (number of connections) of nodes in community $$ i $$.
 
         ### Interpretation of Modularity Values
 
@@ -221,4 +222,32 @@ def show_page(data):
     
     with st.spinner('Analyzing Network...'):
         fig_network = plot_network(data)
-    st.plotly_chart(fig_network, key='network')
+    
+    st.markdown("""
+        ## Understanding Network Plot Below (from `networkx.spring_layout`)
+
+        This network plot shows relationships (e.g., co-authorships) in a collaboration network. Here's how to interpret it:
+
+        1. **Nodes (Circles)**:
+        - Each circle represents a person (e.g., an author).
+        - Larger or more prominently colored nodes indicate individuals with more connections.
+
+        2. **Edges (Lines)**:
+        - Lines show relationships (e.g., collaborations) between nodes.
+        - Shorter lines connect closely related individuals or frequent collaborators.
+
+        3. **Clusters**:
+        - Groups of closely packed nodes represent communities or teams that collaborate frequently.
+        - Distant clusters imply less interaction with the core of the network.
+
+        4. **Key Figures**:
+        - Labeled nodes are central figures with many connections, often the 'center' of the group.
+
+        5. **Layout (Spring Layout)**:
+        - The `networkx.spring_layout` algorithm places highly connected nodes close together.
+        - Peripheral nodes are those with fewer connections to the central network.
+
+        This plot reveals collaboration patterns, highlighting key individuals, core groups, and peripheral members in the network.
+
+        """)
+    st.plotly_chart(fig_network, key='network', use_container_width=True)

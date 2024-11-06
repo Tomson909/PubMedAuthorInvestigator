@@ -23,11 +23,10 @@ def show_page(data, author_name):
         Parameters:
             data (list of dict): List of publication data, with each publication as a dictionary.
         """
-
         authors = []
         for i in data:
             authors.extend(i['FAU'])
-        return len(set(authors)) - 1
+        return len(set(authors)) - 1 # exclude the author itself
     
     def plot_most_collaborated_authors(data):
         """
@@ -88,12 +87,14 @@ def show_page(data, author_name):
         Parameters:
             data (list of dict): List of publication data, with each publication as a dictionary.
         """
+        # Count the number of affiliations and authors, 1 author can also have multiple affiliations
         affiliations = 0
         authors = 0
         for i in data:
             author_names = i['FAU']
             authors += len(author_names)
             for author in author_names:
+                # often affiliation not existent
                 try:
                     affiliations += len(i[f'{author}_AD'])
                 except KeyError:
@@ -108,13 +109,15 @@ def show_page(data, author_name):
             data (list of dict): List of publication data, with each publication as a dictionary.
             author_name (str): Name of the author to analyze and highlight in the dashboard.
         """
+        # set the counters to 0
         affiliations = 0
         authors = 0
         for i in data:
-            if author_name in i['FAU']:
+            if author_name in i['FAU']: # only if the author is in the paper
                 authors += 1
                 try:
-                    affiliations += len(i[f'{author_name}_AD'])
+                    i[f'{author_name}_AD'] # count the affiliations of the author, affiliation not always existent or one author has sometime multiplle affiliations.
+                    affiliations += 1
                 except KeyError:
                     pass
         return affiliations / authors * 100
@@ -275,40 +278,40 @@ def show_page(data, author_name):
 
         info_df = pd.DataFrame({
             "Author Info": ["Number of Papers", "Number of Unique Collaborators", "Top Collaborator", 
-                    "Most Frequent Funder", "Most Frequent Affiliation", "Most Often Last Author", "Number of First Authorships"],
-            "Value": [number_of_paper, number_unique_collaborators, top_author, 
+                            "Most Frequent Funder", "Most Frequent Affiliation", "Most Often Last Author", 
+                            "Number of First Authorships"],
+            "Value": [str(number_of_paper), str(number_unique_collaborators), str(top_author), 
                     f'{most_freq_funder} | {round(perc_fund)}% of papers have funding information.',
-                     f'{most_freq_affiliation} | {round(perc_aff_author)}% of papers include authors affiliation.', 
-                    most_often_last_author, number_first_author]
-        }).set_index("Author Info")
-
+                    f'{most_freq_affiliation} | {round(perc_aff_author)}% of papers include authors affiliation.', 
+                    str(most_often_last_author), str(number_first_author)]
+        }).set_index('Author Info')
 
     # display the summary
     st.write('## Author Overview')
-    st.write('This table provides an overview of the author and their research metrics.')
+    st.write('This table provides an overview of the author and their research metrics. The rows "Most Frequent Funder" and "Most Frequent Affiliation" contain information about how often entrys for the papers were available.')
     st.dataframe(info_df, use_container_width=True)
     
     st.write('## History of Published Papers')
     st.write('This graph shows the number of papers published by the author over the course of the years. This plot shows all the papers published on PubMed.')
-    st.plotly_chart(fig_publ_history, key='published_papers')
+    st.plotly_chart(fig_publ_history, key='published_papers', use_container_width=True)
 
     st.write('## Top 10 Authors ')
     st.write('This graph shows the top most occured authors in the papers published with the author. This is why the name of the author is also included here. This gives us an intutition about the most frequent collaborators of the author.')
-    st.plotly_chart(fig_most_colaborated_authors, key='most_collaborated_authors')
+    st.plotly_chart(fig_most_colaborated_authors, key='most_collaborated_authors', use_container_width=True)
 
     st.write('## Funding Sources')
     st.markdown(f'This graph shows the top 10 funding sources for the papers published with the author. One project can also have multiple grants. The funding identifier is explained in the expander below. **{round(perc_fund)}% of the papers have funding information.**')
-    st.plotly_chart(fig_funding, key='funding_sources')
+    st.plotly_chart(fig_funding, key='funding_sources', use_container_width=True)
 
 
     st.write('## Position of citation of the Author')
     st.write('This graph shows the position of the auhor in the papers. Usually the first author has done most work and the declining order of the author position is the contribution of the author.')
-    st.plotly_chart(fig_author_positions, key='author_positions')
+    st.plotly_chart(fig_author_positions, key='author_positions', use_container_width=True)
 
     
     st.write('## Affiliations')
     st.write(f'This plot shows the top 10 institutions which contributed to the autho papers. This is not the most frequent insitution of just the author. This are the most frequent institutions of all the authors. **{round(perc_aff)}% of the authors have affiliation information.**')
-    st.plotly_chart(fig_affiliation, key='affiliations')
+    st.plotly_chart(fig_affiliation, key='affiliations', use_container_width=True)
 
     st.write('## List of Papers and Links')
     write_titles_links(data)
