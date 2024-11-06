@@ -221,9 +221,10 @@ def show_page(data):
         return fig
     
     with st.spinner('Analyzing Network...'):
-        fig_network = plot_network(data)
-    
-    st.markdown("""
+        st.markdown('The computation might take long. When it takes too long consider trying another author.')
+        try:
+            fig_network = plot_network(data)
+            st.markdown("""
         ## Understanding Network Plot Below (from `networkx.spring_layout`)
 
         This network plot shows relationships (e.g., co-authorships) in a collaboration network. Here's how to interpret it:
@@ -250,4 +251,7 @@ def show_page(data):
         This plot reveals collaboration patterns, highlighting key individuals, core groups, and peripheral members in the network.
 
         """)
-    st.plotly_chart(fig_network, key='network', use_container_width=True)
+            st.plotly_chart(fig_network, key='network', use_container_width=True)
+        except Exception:
+            st.error('The computation of the network graph took too long and therefore was stopped.')
+    
