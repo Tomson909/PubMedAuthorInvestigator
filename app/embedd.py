@@ -94,7 +94,7 @@ def get_embeddings(documents, tokenizer, model):
         with torch.no_grad():
             outputs = model(**inputs)
         # Apply mean pooling across tokens for each document
-        embeddings = outputs.last_hidden_state.mean(dim=1).numpy()
+        embeddings = outputs.last_hidden_state.mean(dim=1).numpy() # average pooling for all the output vectors. This is one way to embedd a document.
         all_embeddings.extend(embeddings)
     return np.array(all_embeddings)
 

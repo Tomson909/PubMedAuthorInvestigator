@@ -10,7 +10,7 @@ st.set_page_config(layout="wide", page_title="My Streamlit App")
 st.title('PubMed Author Investigator')
 
 # Define the titles for each of the application tabs
-tabs = ["About", "Summary", "Author Network", "Topic Clustering"]
+tabs = ["About", "Summary", "Author Network", "Title Embeddings"]
 
 # Initialize session state variables if they don’t exist
 if 'selected_tab' not in st.session_state:
