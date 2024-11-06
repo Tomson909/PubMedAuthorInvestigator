@@ -48,7 +48,7 @@ def show_page():
     st.write(
         """
         Using this search method, the app gathers data one page at a time, with each page containing a specified 
-        number of results. 
+        number of results. There are also API's available but used this method, since it seemes straight forward to me.
 
         To comply with PubMed’s [usage policies](https://www.ncbi.nlm.nih.gov/home/about/policies/), the app 
         limits requests to a maximum of 3 per second, adding a delay to avoid server blocks. The retrieved 

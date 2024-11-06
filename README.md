@@ -23,7 +23,7 @@ The data is retrieved by sending HTTP requests to PubMed's internal API. Each se
 
 Using this search method, the app gathers data one page at a time, with each page containing a specified number of results. 
 
-To comply with PubMed’s [usage policies](https://www.ncbi.nlm.nih.gov/home/about/policies/), the app limits requests to a maximum of 3 per second, adding a delay to avoid server blocks. The retrieved data is then parsed and saved as JSON files for efficient use within the app. Please read the usage policies carefully before using the app. Use is at your own risk.
+To comply with PubMed’s [usage policies](https://www.ncbi.nlm.nih.gov/home/about/policies/), the app limits requests to a maximum of 3 per second, adding a delay to avoid server blocks. The retrieved data is then parsed and saved as JSON files for efficient use within the app. Please read the usage policies carefully before using the app. Use is at your own risk. There are also API's available but used this method, since it seemes straight forward to me.
 
 ## How to Use the App?
 To get started, enter the author's name in the search bar and click the **Search** button. The app will then retrieve the author's publications from PubMed and display the results in the **Summary** tab. From there, you can navigate to the **Author Network** and **Topic Clustering** tabs to explore co-author relationships and topic groupings, respectively.
