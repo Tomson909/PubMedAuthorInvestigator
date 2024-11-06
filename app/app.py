@@ -20,8 +20,8 @@ if 'data' not in st.session_state:
 
 # Create sidebar elements for user navigation
 # Create a selectbox in the sidebar for tab selection
-selected_tab = st.sidebar.selectbox("Select a Tab", tabs, index=tabs.index(st.session_state.selected_tab))
-st.session_state.selected_tab = selected_tab  # Store selected tab in session state for persistence
+selected_tab = st.sidebar.selectbox("Select a Tab", tabs, index=tabs.index(st.session_state.get('selected_tab', "About")))
+#st.session_state.selected_tab = selected_tab  # Store selected tab in session state for persistence
 
 # Add text input fields in the sidebar to input author details
 fname = st.sidebar.text_input('First Name', key='fname')
@@ -124,7 +124,7 @@ if st.sidebar.button('Search - Update'):
         
         my_bar.empty()  # Clear the progress bar when loading is complete
 
-        st.session_state.selected_tab = "Summary"
+        selected_tab = "Summary" 
     # Display an error message if no data is loaded
     if not st.session_state.data:
         st.markdown(
@@ -148,20 +148,20 @@ if st.sidebar.button('Search - Update'):
             )
 
 # about page is not dependent on data.
-if st.session_state.selected_tab == "About":
+if selected_tab == "About":
     import about
     about.show_page()
 
 # Display the selected tab module only if data is available
 if st.session_state.data:
     st.write('Read the about page for more details about the app and the data retrieval process.')
-    if st.session_state.selected_tab == "Summary":
+    if selected_tab == "Summary":
         import summary
         summary.show_page(st.session_state.data, st.session_state.name)
-    elif st.session_state.selected_tab == "Author Network":
+    elif selected_tab == "Author Network":
         import network
         network.show_page(st.session_state.data)
-    elif st.session_state.selected_tab == "Topic Clustering":
+    elif selected_tab == "Topic Clustering":
         import embedd
         embedd.show_page(st.session_state.data, st.session_state.name)
 

@@ -1,4 +1,8 @@
 # Welcome to the PubMed Author Explorer!
+
+
+## ❤️ Check out the application [here](https://pubmedinvestigator.streamlit.app/)! ❤️
+
 This application is designed to help you explore and analyze the research publications of a specific author on PubMed.
 ![Demo](demo.gif)
 
