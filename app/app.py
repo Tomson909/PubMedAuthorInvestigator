@@ -4,7 +4,7 @@ import json
 from pubmed_crawler import SinglePubMedSearcher
 
 # Set the page configuration for layout and title in the Streamlit app
-st.set_page_config(layout="wide", page_title="My Streamlit App")
+st.set_page_config(layout="wide", page_title="PubMed Author Investigator")
 
 # Display the main title of the application
 st.title('PubMed Author Investigator')
@@ -21,7 +21,6 @@ if 'data' not in st.session_state:
 # Create sidebar elements for user navigation
 # Create a selectbox in the sidebar for tab selection
 selected_tab = st.sidebar.selectbox("Select a Tab", tabs, index=tabs.index(st.session_state.get('selected_tab', "About")))
-#st.session_state.selected_tab = selected_tab  # Store selected tab in session state for persistence
 
 # Add text input fields in the sidebar to input author details
 fname = st.sidebar.text_input('First Name', key='fname')
@@ -31,6 +30,9 @@ lname = st.sidebar.text_input('Last Name', key='lname')
 fname = fname.strip()
 lname = lname.strip()
 
+# make sure the first letter is capitalized and the rest is lower case
+fname = fname.capitalize()
+lname = lname.capitalize()
 
 # Function to retrieve list of file paths in the specified directory
 def get_paper(dir_name):
@@ -161,7 +163,7 @@ if st.session_state.data:
     elif selected_tab == "Author Network":
         import network
         network.show_page(st.session_state.data)
-    elif selected_tab == "Topic Clustering":
+    elif selected_tab == "Title Embeddings":
         import embedd
         embedd.show_page(st.session_state.data, st.session_state.name)
 

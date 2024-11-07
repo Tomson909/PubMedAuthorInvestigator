@@ -48,8 +48,6 @@ def plot_network(data):
         "Value": [len(communities), modularity]
     }).set_index("Metric")
     
-    # Display the results table in Streamlit
-    st.table(results_df)
     
     # Centrality calculation
     center_nodes = nx.degree_centrality(G)
@@ -130,13 +128,18 @@ def plot_network(data):
                 opacity=0.9,
             )
     
-    return fig
+    return fig, results_df
 
 
 def show_page(data):
-    """
-    Displays a network analysis page based on the provided data.
-    """
+    st.info('The network analysis may take too long. In case it does not load, try a different author who has fewer colaborators.')
+    # make a green box for text, which says that the network analysis is being performed
+
+    with st.spinner("Please wait..."):
+        # Display the network plot
+        fig_network, results_df = plot_network(data)
+
+
     # Add text and explanation to Streamlit
     modularity_explanation = """
     ## Modularity
@@ -151,6 +154,7 @@ def show_page(data):
     """
 
     st.markdown(modularity_explanation)
+    st.dataframe(results_df, use_container_width=True)
     
     # Display the modularity formula
     st.latex(r"""
@@ -175,8 +179,6 @@ def show_page(data):
     The community detection algorithm used in this analysis is the Greedy Modularity Communities algorithm, which is based on maximizing the modularity of the network. It identifies communities by iteratively moving nodes between communities to improve the overall modularity score.
     """)
 
-    # Display the network plot
-    fig_network = plot_network(data)
     st.markdown("""
         ## Understanding Network Plot Below (from `networkx.spring_layout`)
         
@@ -203,4 +205,4 @@ def show_page(data):
         
         This plot reveals collaboration patterns, highlighting key individuals, core groups, and peripheral members in the network.
     """)
-    st.plotly_chart(fig_network)
+    st.plotly_chart(fig_network, use_container_width=True)

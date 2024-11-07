@@ -25,7 +25,45 @@ The data is retrieved by sending HTTP requests to PubMed's internal API. Each se
 
 `https://pubmed.ncbi.nlm.nih.gov/?term=lastname+firstname&format=pubmed&size=200&page=1`
 
-Using this search method, the app gathers data one page at a time, with each page containing a specified number of results. 
+Using this search method, the app gathers data one page at a time, with each page containing a specified 
+number of results. There are also APIs available but I used this method, since it seems straight forward to me. The text returned PubMed format looks like this:
+
+```
+PMID- 15372042
+OWN - NLM
+STAT- MEDLINE
+DCOM- 20041015
+LR  - 20240308
+IS  - 1476-4687 (Electronic)
+IS  - 0028-0836 (Linking)
+VI  - 431
+IP  - 7006
+DP  - 2004 Sep 16
+TI  - The functions of animal microRNAs.
+PG  - 350-5
+AB  - MicroRNAs (miRNAs) are small RNAs that regulate the expression of complementary 
+    messenger RNAs. Hundreds of miRNA genes have been found in diverse animals, and 
+    many of these are phylogenetically conserved. With miRNA roles identified in 
+    developmental timing, cell death, cell proliferation, haematopoiesis and 
+    patterning of the nervous system, evidence is mounting that animal miRNAs are 
+    more numerous, and their regulatory impact more pervasive, than was previously 
+    suspected.
+FAU - Ambros, Victor
+AU  - Ambros V
+AD  - Dartmouth Medical School, Department of Genetics, Hanover, New Hampshire 03755, 
+    USA (e-mail: vra@dartmouth.edu)
+LA  - eng
+PT  - Journal Article
+PT  - Research Support, U.S. Gov't, P.H.S.
+PT  - Review
+PL  - England
+TA  - Nature
+JT  - Nature
+JID - 0410462
+RN  - 0 (MicroRNAs)
+SB  - IM    
+...
+```
 
 To comply with PubMed’s [usage policies](https://www.ncbi.nlm.nih.gov/home/about/policies/), the app limits requests to a maximum of 3 per second, adding a delay to avoid server blocks. The retrieved data is then parsed and saved as JSON files for efficient use within the app. Please read the usage policies carefully before using the app. Use is at your own risk. There are also API's available but used this method, since it seemes straight forward to me.
 
