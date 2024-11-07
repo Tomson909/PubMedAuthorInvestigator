@@ -6,6 +6,13 @@ import torch
 from transformers import AutoTokenizer, AutoModel
 from sklearn.decomposition import PCA
 
+"""
+Warning: Running this code in a docker enviroment leads to following warning:
+    Examining the path of torch.classes raised: Tried to instantiate class '__path__._path', but it does not exist! Ensure that it is registered via torch::class_
+
+I was not able to fix this problem. The code works fine in a local enviroment. But the functionality is not affected by this warning.
+"""
+
 # Function to plot embeddings using Plotly
 def plot_embeddings_with_plotly(embeddings, urls):
     """
@@ -107,6 +114,7 @@ def show_page(data, name):
     Parameters:
     - data: list of dictionaries containing paper details for analysis
     """
+    st.info('The embeddings may take too long. In case it does not load, try a different author with less papers.')
     with st.spinner('Create Embeddings...'):
         # To make sure new athors are loaded
         dummy = None
