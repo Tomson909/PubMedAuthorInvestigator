@@ -1,6 +1,18 @@
 # App
 This directory contains everything to run the streamlit application I built. The app should be self explanatory. I tried to document the code as goodas possible, so a reader can understand the code easily.
 
+## ❤️ Check out the application [here](https://drive.google.com/file/d/1bgL30_DIe4LexvdLM-zcd6VvCow2ztyF/view?usp=drive_link)(Docker Image)! ❤️
+Or build your own docker image from the repo. Requirements.txt and Dockerfile is already there. 
+
+Install the docker image:
+```
+docker load -i pubmedinv.tar
+```
+
+Run the image:
+```
+docker run -p 8501:8501 pubmedinv
+```
 ## Structure
 ### PubMed Crawler
 The directory also contains the pubmed crawler and the parser of the returned PubMed format.
