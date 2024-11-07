@@ -9,6 +9,7 @@ __pycache__/
 # remove data, task
 app/results/
 task/
+developement/
 
 # Distribution / packaging
 .Python
