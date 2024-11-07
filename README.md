@@ -6,12 +6,12 @@ Or build your own docker image from the repo. Requirements.txt and Dockerfile is
 
 Install the docker image:
 ```
-docker load pubmedinv.tar
+docker load -i pubmedinv.tar
 ```
 
 Run the image:
 ```
-
+docker run -p 8501:8501 pubmedinv
 ```
 This application is designed to help you explore and analyze the research publications of a specific author on PubMed.
 ![Demo](demo.gif)
