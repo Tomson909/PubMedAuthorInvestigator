@@ -27,3 +27,11 @@ This streamlit page extracts all the authors from the papers and creates a nice 
 
 ### Title Embeddings
 This page performs a title embedding and then a pca based on the embedding vectors in order to vizualize the topics in a 2 dimensional plot. 
+
+
+---
+
+I used code assistence for all my written code:
+
+- ChatGPT 3.5 and ChatGPT 4o
+- GitHub Copilot

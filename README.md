@@ -84,3 +84,9 @@ To comply with PubMed’s [usage policies](https://www.ncbi.nlm.nih.gov/home/abo
 To get started, enter the author's name in the search bar and click the **Search** button. The app will then retrieve the author's publications from PubMed and display the results in the **Summary** tab. From there, you can navigate to the **Author Network** and **Topic Clustering** tabs to explore co-author relationships and topic groupings, respectively.
 
 
+---
+
+I used code assistence for all my written code:
+
+- ChatGPT 3.5 and ChatGPT 4o
+- GitHub Copilot
