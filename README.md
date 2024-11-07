@@ -13,6 +13,9 @@ Run the image:
 ```
 docker run -p 8501:8501 pubmedinv
 ```
+
+
+
 This application is designed to help you explore and analyze the research publications of a specific author on PubMed.
 ![Demo](demo.gif)
 
