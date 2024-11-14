@@ -6,12 +6,12 @@ Or build your own docker image from the repo. Requirements.txt and Dockerfile is
 
 Install the docker image:
 ```
-docker load -i pubmedinv.tar
+docker load -i pubmedinv1.0.0.tar
 ```
 
 Run the image:
 ```
-docker run -p 8501:8501 pubmedinv
+docker run -p 8501:8501 pubmedinv1.0.0
 ```
 
 
