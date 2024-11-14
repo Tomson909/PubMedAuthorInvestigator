@@ -30,7 +30,7 @@ def show_page():
     st.markdown("## Important Note")
     st.warning(
         """
-        - Ensure that the author's name is entered **accurately**; otherwise, the search may return no results.
+        - Ensure that the author's name is entered **accurately**; otherwise, the search may return no results or unexpected results. The name must match exactly as it appears in the paper's author list.
         - The app currently **cannot distinguish between authors with the same name**; results may include 
           works by multiple individuals if their names match.
         """

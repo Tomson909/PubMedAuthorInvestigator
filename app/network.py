@@ -139,6 +139,7 @@ def show_page(data):
         # Display the network plot
         fig_network, results_df = plot_network(data)
 
+    st.dataframe(results_df, use_container_width=True)
 
     # Add text and explanation to Streamlit
     modularity_explanation = """
@@ -154,7 +155,6 @@ def show_page(data):
     """
 
     st.markdown(modularity_explanation)
-    st.dataframe(results_df, use_container_width=True)
     
     # Display the modularity formula
     st.latex(r"""
@@ -174,9 +174,6 @@ def show_page(data):
     - **Q > 0**: The network has communities. The higher the value, the stronger the community structure.
     - **0.3 < Q ≤ 0.5**: A moderate community structure.
     - **Q > 0.5**: A strong community structure, indicating well-defined groups.
-
-    ## Community Detection
-    The community detection algorithm used in this analysis is the Greedy Modularity Communities algorithm, which is based on maximizing the modularity of the network. It identifies communities by iteratively moving nodes between communities to improve the overall modularity score.
     """)
 
     st.markdown("""
@@ -202,6 +199,9 @@ def show_page(data):
         5. **Layout (Spring Layout)**:
         - The `networkx.spring_layout` algorithm places highly connected nodes close together.
         - Peripheral nodes are those with fewer connections to the central network.
+                
+        6. **Displayed Names**:
+        - The names of the top 10 most central individuals are shown on the plot. These are the most connected authors in the network.
         
         This plot reveals collaboration patterns, highlighting key individuals, core groups, and peripheral members in the network.
     """)

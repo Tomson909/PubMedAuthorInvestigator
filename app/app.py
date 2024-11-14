@@ -22,6 +22,7 @@ if 'data' not in st.session_state:
 # Create a selectbox in the sidebar for tab selection
 selected_tab = st.sidebar.selectbox("Select a Tab", tabs, index=tabs.index(st.session_state.get('selected_tab', "About")))
 
+
 # Add text input fields in the sidebar to input author details
 fname = st.sidebar.text_input('First Name', key='fname')
 lname = st.sidebar.text_input('Last Name', key='lname')
@@ -30,9 +31,7 @@ lname = st.sidebar.text_input('Last Name', key='lname')
 fname = fname.strip()
 lname = lname.strip()
 
-# make sure the first letter is capitalized and the rest is lower case
-fname = fname.capitalize()
-lname = lname.capitalize()
+# The names are not altered futher. It is better to give the user the information that the name must be entered as it appears in the paper. 
 
 # Function to retrieve list of file paths in the specified directory
 def get_paper(dir_name):
@@ -171,6 +170,13 @@ if st.session_state.data:
 else:
     st.write("Please enter the author's name and click 'Search' to load data.")
 
+
+st.sidebar.markdown('---')
+st.sidebar.warning(
+    """
+    **The name must match exactly as it appears in the paper's author list**. Ensure that the author's name is entered accurately; otherwise, the search may return no results or unexpected results.
+    """
+)
 # Footer information for the app
 st.markdown("---")  # Adds a simple horizontal line
 st.write("**App Version:** 1.0.0  |  **Developer:** Tom Ruge")

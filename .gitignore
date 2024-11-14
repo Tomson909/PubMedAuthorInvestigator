@@ -11,6 +11,9 @@ app/results/
 task/
 developement/
 
+#submission
+SubmissionTomRuge.txt
+
 # Distribution / packaging
 .Python
 build/
